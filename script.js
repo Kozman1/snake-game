@@ -9,23 +9,17 @@ const screenHeight = window.innerHeight * dpi;
 let cellNumber = 50;
 let cellColor = 'blue'
 let cellSize = screenWidth / cellNumber;
+let cellMatrix = [];
 
-//fixing differnce between virtual and actual device pixels
-function fixDPI() {
-    
-    const style = {
-        get width() {
-            return getComputedStyle(canvas).getPropertyValue('width').slice(0, -2);
-        },
-        
-        get height() {
-            return getComputedStyle(canvas).getPropertyValue('height').slice(0, -2);
+function createCellMatrix() {
+    for (let x = 0; x < cellNumber; x++) {
+        cellMatrix[x] = [];
+        for (let y = 0; y * cellSize < screenHeight; y++) {
+            cellMatrix[x][y] = {};
         }
     }
-
-    canvas.setAttribute('width', style.width * dpi);
-    canvas.setAttribute('height', style.height * dpi);
 }
+
 
 
 function drawGrid() {
@@ -70,9 +64,27 @@ function clearCell(c, r) {
     ctx.clearRect(x, y, w, h);
 }
 
+//fixing differnce between virtual and actual device pixels
+function fixDPI() {
+    
+    const style = {
+        get width() {
+            return getComputedStyle(canvas).getPropertyValue('width').slice(0, -2);
+        },
+        
+        get height() {
+            return getComputedStyle(canvas).getPropertyValue('height').slice(0, -2);
+        }
+    }
+
+    canvas.setAttribute('width', style.width * dpi);
+    canvas.setAttribute('height', style.height * dpi);
+}
+
 function draw() {
     fixDPI();
     drawGrid();
 }
 
 requestAnimationFrame(draw);
+createCellMatrix();
