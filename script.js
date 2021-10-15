@@ -7,9 +7,8 @@ const screenHeight = window.innerHeight * dpi;
 
 
 let cellNumber = 50;
+let cellColor = 'blue'
 let cellSize = screenWidth / cellNumber;
-
-
 
 //fixing differnce between virtual and actual device pixels
 function fixDPI() {
@@ -52,6 +51,24 @@ function drawGrid() {
     }
 }
 
+function drawCell(c, r) {
+    let x = c * cellSize + 1;
+    let y = r * cellSize + 1;
+    let w = cellSize - 1;
+    let h = cellSize - 1;
+    ctx.fillStyle = cellColor;
+
+    ctx.fillRect(x, y, w, h);
+}
+
+function clearCell(c, r) {
+    let x = c * cellSize + 1;
+    let y = r * cellSize + 1;
+    let w = cellSize - 1;
+    let h = cellSize - 1;
+
+    ctx.clearRect(x, y, w, h);
+}
 
 function draw() {
     fixDPI();
