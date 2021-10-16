@@ -11,6 +11,7 @@ let cellSize = screenWidth / cellNumber;
 let ms = 1000;
 let cellMatrix = [];
 let direction = '';
+let snake = new Snake();
 
 window.addEventListener('keypress', event => {
 
@@ -32,7 +33,7 @@ class SnakeNode {
     }
 }
 
-class SnakeList {
+class Snake {
     constructor() {
         this.head = null;
         this.length = 0;
@@ -84,6 +85,9 @@ function moveSnake(keyCode) {
             console.log(keyCode);
             break;
         default: 
+    }
+    while(snake.next) {
+
     }
 }
 
