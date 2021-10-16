@@ -42,9 +42,9 @@ const screenHeight = window.innerHeight * dpi;
 let cellNumber = 50;
 let cellColor = 'blue'
 let cellSize = screenWidth / cellNumber;
-let ms = 1000;
+let tick = 1000;
 let cellMatrix = [];
-let direction = '';
+let keyCode = '';
 let snake = new Snake();
 snake.head = { x: 0, y: 0 };
 
@@ -55,7 +55,7 @@ window.addEventListener('keypress', event => {
         case 'KeyA':
         case 'KeyS':
         case 'KeyD':
-            direction = event.code;
+            keyCode = event.code;
             break;
     }
 
@@ -73,33 +73,39 @@ function createCellMatrix() {
 }
 
 function moveSnake(keyCode) {
-    direction = keyCode;
-    switch(direction) {
+    let movement = { x: 0, y: 0 };
+    switch(keyCode) {
         case 'KeyW':
-            console.log(keyCode);
+            movement.x = 0;
+            movement.y = -1;
             break;
         case 'KeyA':
-            console.log(keyCode);
+            movement.x = -1;
+            movement.y = 0;
             break;
         case 'KeyS':
-            console.log(keyCode);
+            movement.x = 0;
+            movement.y = 1;
             break;
         case 'KeyD':
-            console.log(keyCode);
+            movement.x = 1;
+            movement.y = 0;
             break;
     }
 
     let current = snake.head;
-
+    clearCell(current.x, current.y);
+    current.x += movement.x;
+    current.y += movement.y;
+    drawCell(current.x, current.y);
     while(current.next) {
+        clearCell(current.next.x, current.next.y);
         current.next.x = current.x;
         current.next.y = current.y;
-
+        drawCell(current.next.x, current.next.y);
     }
 
-    function moveSection() {
 
-    }
 }
 
 function drawGrid() {
@@ -169,7 +175,7 @@ function draw() {
 async function run() {
     while(true) {
         await timeout(tick);
-
+        moveSnake(keyCode);
     }
 }
 
