@@ -12,7 +12,18 @@ let ms = 1000;
 let cellMatrix = [];
 let direction = '';
 
-window.addEventListener('keypress', event => changeDirection(event.code));
+window.addEventListener('keypress', event => {
+
+    switch(event.code) {
+        case 'KeyW':
+        case 'KeyA':
+        case 'KeyS':
+        case 'KeyD':
+            direction = event.code;
+            break;
+    }
+
+});
 
 class SnakeNode {
     constructor(data) {
@@ -73,7 +84,6 @@ function moveSnake(keyCode) {
             console.log(keyCode);
             break;
         default: 
-
     }
 }
 
