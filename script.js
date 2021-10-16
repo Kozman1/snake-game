@@ -10,6 +10,41 @@ let cellNumber = 50;
 let cellColor = 'blue'
 let cellSize = screenWidth / cellNumber;
 let cellMatrix = [];
+let snake = [{x: 0, y: 0}];
+let direction = '';
+
+
+class SnakeNode {
+    constructor(data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class SnakeList {
+    constructor() {
+        this.head = null;
+        this.length = null;
+    }
+
+    addToTheEnd(data) {
+        let node = new SnakeNode(data);
+
+        if(this.length === 0) {
+            // if there are no nodes, create head node
+            this.head = node;
+        }
+        else {
+            let current = this.head;
+
+            while(current.next) {
+                current = current.next;
+            }
+
+            current.next = new SnakeNode(data);
+        }
+    }
+}
 
 function createCellMatrix() {
     for (let x = 0; x < cellNumber; x++) {
@@ -20,6 +55,27 @@ function createCellMatrix() {
     }
 }
 
+function moveSnake(keyCode) {
+    direction = keyCode;
+    switch(direction) {
+        case 'KeyW':
+            console.log(keyCode);
+            break;
+        case 'KeyA':
+            console.log(keyCode);
+            break;
+        case 'KeyS':
+            console.log(keyCode);
+            break;
+        case 'KeyD':
+            console.log(keyCode);
+            break;
+        default: 
+
+    }
+}
+
+window.addEventListener('keypress', event => changeDirection(event.code));
 
 
 function drawGrid() {
