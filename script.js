@@ -43,6 +43,8 @@ class SnakeList {
 
             current.next = new SnakeNode(data);
         }
+
+        this.length++;
     }
 }
 
