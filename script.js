@@ -1,31 +1,3 @@
-const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
-const dpi = window.devicePixelRatio;
-const screenWidth = window.innerWidth * dpi;
-const screenHeight = window.innerHeight * dpi;
-
-
-let cellNumber = 50;
-let cellColor = 'blue'
-let cellSize = screenWidth / cellNumber;
-let ms = 1000;
-let cellMatrix = [];
-let direction = '';
-let snake = new Snake();
-
-window.addEventListener('keypress', event => {
-
-    switch(event.code) {
-        case 'KeyW':
-        case 'KeyA':
-        case 'KeyS':
-        case 'KeyD':
-            direction = event.code;
-            break;
-    }
-
-});
-
 class SnakeNode {
     constructor(data) {
         this.data = data;
@@ -60,6 +32,37 @@ class Snake {
     }
 }
 
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+const dpi = window.devicePixelRatio;
+const screenWidth = window.innerWidth * dpi;
+const screenHeight = window.innerHeight * dpi;
+
+
+let cellNumber = 50;
+let cellColor = 'blue'
+let cellSize = screenWidth / cellNumber;
+let ms = 1000;
+let cellMatrix = [];
+let direction = '';
+let snake = new Snake();
+snake.head = { x: 0, y: 0 };
+
+window.addEventListener('keypress', event => {
+
+    switch(event.code) {
+        case 'KeyW':
+        case 'KeyA':
+        case 'KeyS':
+        case 'KeyD':
+            direction = event.code;
+            break;
+    }
+
+});
+
+
+
 function createCellMatrix() {
     for (let x = 0; x < cellNumber; x++) {
         cellMatrix[x] = [];
@@ -84,9 +87,17 @@ function moveSnake(keyCode) {
         case 'KeyD':
             console.log(keyCode);
             break;
-        default: 
     }
-    while(snake.next) {
+
+    let current = snake.head;
+
+    while(current.next) {
+        current.next.x = current.x;
+        current.next.y = current.y;
+
+    }
+
+    function moveSection() {
 
     }
 }
