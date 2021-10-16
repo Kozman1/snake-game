@@ -8,9 +8,11 @@ const screenHeight = window.innerHeight * dpi;
 let cellNumber = 50;
 let cellColor = 'blue'
 let cellSize = screenWidth / cellNumber;
+let ms = 1000;
 let cellMatrix = [];
 let direction = '';
 
+window.addEventListener('keypress', event => changeDirection(event.code));
 
 class SnakeNode {
     constructor(data) {
@@ -74,9 +76,6 @@ function moveSnake(keyCode) {
 
     }
 }
-
-window.addEventListener('keypress', event => changeDirection(event.code));
-
 
 function drawGrid() {
     ctx.strokeStyle = 'rgb(0, 0, 0)';
@@ -142,15 +141,10 @@ function draw() {
     drawGrid();
 }
 
-requestAnimationFrame(draw);
-createCellMatrix();
-
-
-
 async function run() {
     while(true) {
         await timeout(tick);
-        evalGeneration();
+
     }
 }
 
@@ -158,3 +152,10 @@ async function run() {
 function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+requestAnimationFrame(draw);
+createCellMatrix();
+run();
+
+
+
