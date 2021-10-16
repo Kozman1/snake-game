@@ -5,12 +5,10 @@ const screenWidth = window.innerWidth * dpi;
 const screenHeight = window.innerHeight * dpi;
 
 
-
 let cellNumber = 50;
 let cellColor = 'blue'
 let cellSize = screenWidth / cellNumber;
 let cellMatrix = [];
-let snake = [{x: 0, y: 0}];
 let direction = '';
 
 
@@ -24,7 +22,7 @@ class SnakeNode {
 class SnakeList {
     constructor() {
         this.head = null;
-        this.length = null;
+        this.length = 0;
     }
 
     addToTheEnd(data) {
@@ -146,3 +144,17 @@ function draw() {
 
 requestAnimationFrame(draw);
 createCellMatrix();
+
+
+
+async function run() {
+    while(true) {
+        await timeout(tick);
+        evalGeneration();
+    }
+}
+
+
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
