@@ -10,7 +10,7 @@ class Snake {
         this.head = null;
         this.length = 0;
     }
-
+    // data is node object with x and y coords
     addToTheEnd(data) {
         let node = new SnakeNode(data);
 
@@ -20,7 +20,7 @@ class Snake {
         }
         else {
             let current = this.head;
-
+            // FIXME: something must be wrong with this loop, it won't exit 
             while(current.next) {
                 current = current.next;
             }
@@ -30,6 +30,7 @@ class Snake {
 
         this.length++;
     }
+
 }
 
 const canvas = document.querySelector('canvas');
@@ -46,10 +47,11 @@ let tick = 1000;
 let cellMatrix = [];
 let keyCode = '';
 let snake = new Snake();
-snake.head = { x: 0, y: 0 };
+snake.addToTheEnd({ x: 1, y: 1 });
+
+
 
 window.addEventListener('keypress', event => {
-
     switch(event.code) {
         case 'KeyW':
         case 'KeyA':
@@ -58,7 +60,6 @@ window.addEventListener('keypress', event => {
             keyCode = event.code;
             break;
     }
-
 });
 
 
@@ -94,18 +95,16 @@ function moveSnake(keyCode) {
     }
 
     let current = snake.head;
-    clearCell(current.x, current.y);
-    current.x += movement.x;
-    current.y += movement.y;
-    drawCell(current.x, current.y);
+    clearCell(current.data.x, current.data.y);
+    current.data.x += movement.x;
+    current.data.y += movement.y;
+    drawCell(current.data.x, current.data.y);
     while(current.next) {
-        clearCell(current.next.x, current.next.y);
-        current.next.x = current.x;
-        current.next.y = current.y;
-        drawCell(current.next.x, current.next.y);
+        clearCell(current.next.data.x, current.next.data.y);
+        current.next.data.x = current.data.x;
+        current.next.data.y = current.data.y;
+        drawCell(current.next.data.x, current.next.data.y);
     }
-
-
 }
 
 function drawGrid() {
@@ -180,7 +179,7 @@ async function run() {
 }
 
 
-function timeout(ms) {
+function timeout(ms) {  
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -188,5 +187,4 @@ requestAnimationFrame(draw);
 createCellMatrix();
 run();
 
-
-
+// 51923803792e3acc48c86a4a95dd7518-4
